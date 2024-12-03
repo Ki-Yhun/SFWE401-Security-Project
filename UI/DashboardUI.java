@@ -35,13 +35,18 @@ public class DashboardUI {
 
         // Insurance Entry Button
         JButton insuranceEntryButton = new JButton("Insurance Entry");
-        insuranceEntryButton.setBounds(120, 160, 150, 25);
+        insuranceEntryButton.setBounds(120, 180, 150, 25);
         panel.add(insuranceEntryButton);
 
         // Notification Preferences Button
         JButton notificationPreferencesButton = new JButton("Notification Preferences");
-        notificationPreferencesButton.setBounds(120, 200, 150, 25);
+        notificationPreferencesButton.setBounds(120, 220, 150, 25);
         panel.add(notificationPreferencesButton);
+
+        // Prescription Refill Request Button
+        JButton prescriptionRefillRequestButton = new JButton("Refill Request");
+        prescriptionRefillRequestButton.setBounds(120, 260, 150, 25);
+        panel.add(prescriptionRefillRequestButton);
 
         // Action Listener to open Inventory Report Selection
         generateReportButton.addActionListener(new ActionListener() {
@@ -84,6 +89,15 @@ public class DashboardUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 NotificationUI.initNotificationUI(); // Assuming static init method
+                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
+            }
+        });
+
+        // Action Listener for Prescription Refill Request
+        prescriptionRefillRequestButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PrescriptionRefillRequestUI.initPrescriptionRefillRequestUI(); // Assuming static init method
                 ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
             }
         });
