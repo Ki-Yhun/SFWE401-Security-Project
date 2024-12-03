@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.*;                   // For teh jTextArea
 
 public class PatientEntryUI implements ActionListener {
     private static JLabel patientNameLabel;
@@ -14,12 +15,13 @@ public class PatientEntryUI implements ActionListener {
     private static JLabel contactInfoLabel;
     private static JTextField contactInfoField;
     private static JButton enterButton;
+    private static JFrame entryFrame; // Store the PatientEntryUI JFrame reference in class so we can close it once information is entered
 
     public Patient patient;
 
     public static void initPatientEntryUI() {
         JPanel entryPanel = new JPanel();
-        JFrame entryFrame = new JFrame("Patient Entry");
+        entryFrame = new JFrame("Patient Entry");   // JFrame decleration moved from local to above at class level
 
         entryFrame.setSize(400, 300);
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,11 +98,37 @@ public class PatientEntryUI implements ActionListener {
             patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);
             patient.setDOB(dob);
 
+            /* OLD TO PRINT TO CONSOLE WAY
             // Process the data (for now, just print to the console)
             System.out.println("Patient Name: " + patientName);
             System.out.println("Date of Birth: " + dob);
             System.out.println("Contact Info: " + contactInfo);
+            */
+
+            // Close the current PatientEntryUI
+            entryFrame.dispose();
+
+            // Open a new UI window to display the entered information
+            showPatientInfoUI(patientName, dob, contactInfo);
         }
+    }
+    //  New UI to display entered information
+    private void showPatientInfoUI(String patientName, String dob, String contactInfo) {
+        JFrame infoFrame = new JFrame("Patient Information");
+        infoFrame.setSize(400, 300);
+        infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JTextArea infoArea = new JTextArea();
+        infoArea.setEditable(false);
+        infoArea.setText("Patient Information:\n");
+        infoArea.append("Patient Name: " + patientName + "\n");
+        infoArea.append("Date of Birth: " + dob + "\n");
+        infoArea.append("Contact Info: " + contactInfo);
+
+        JScrollPane scrollPane = new JScrollPane(infoArea);
+        infoFrame.add(scrollPane);
+
+        infoFrame.setVisible(true);
     }
 
     public static void main(String[] args) {

@@ -20,6 +20,7 @@ public class PrescriptionEntryUI implements ActionListener {
     private static JLabel instructionsLabel;
     private static JTextField instructionsField;
     private static JButton enterButton;
+    private static JFrame entryFrame;   // Class-level JFrame reference so we can close ui when done with entry
 
     public Prescription prescription;
     public Patient patient; 
@@ -27,7 +28,7 @@ public class PrescriptionEntryUI implements ActionListener {
 
     public static void initPrescriptionEntryUi() {
         JPanel entryPanel = new JPanel();
-        JFrame entryFrame = new JFrame("Prescription Entry");
+        entryFrame = new JFrame("Prescription Entry");  // JFrame decleration moved from local to above at class level
 
         entryFrame.setSize(500, 500);
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,11 +154,16 @@ public class PrescriptionEntryUI implements ActionListener {
                 lastName = " ";
             }
 
-
-            
-
-            patient = prescription.getPatient();
-            drug = prescription.getDrug();
+            // Initialize prescription, patient, or drug if null
+            if (prescription == null) {
+                prescription = new Prescription();
+            }
+            if (patient == null) {
+                patient = new Patient("defaultUsername", "defaultPassword", "", "");
+            }
+            if (drug == null) {
+                drug = new Drug("", "", false);
+            }
 
             if(firstName.equals(patient.getfirstName()) && lastName.equals(patient.getlastName())){                         // Patient exists
                 if(medicationName.equals(drug.getName())){                                                                  // Drug exists 
@@ -183,13 +189,13 @@ public class PrescriptionEntryUI implements ActionListener {
 
             }
 
-            
+            // Close the current PrescriptionEntryUI
+            entryFrame.dispose();
 
-            
+            // Open a new UI window to display the entered information
+            showPrescriptionInfoUI(patientName, dob, medicationName, medicationDate, isControlled, dosage, physicianName, instructions);
 
-            
-
-            /* 
+            /* OLD TO PRINT TO CONSOLE WAY
             // Process the data (for now, just print to the console)
             System.out.println("Patient Name: " + patientName);
             System.out.println("Date of Birth: " + dob);
@@ -198,9 +204,31 @@ public class PrescriptionEntryUI implements ActionListener {
             System.out.println("Physician Name: " + physicianName);
             System.out.println("Instructions: " + instructions);
             */
-
-
         }
+    }
+
+    //  New UI to display entered information
+    private void showPrescriptionInfoUI(String patientName, String dob, String medicationName, String medicationDate, boolean isControlled, String dosage, String physicianName, String instructions) {
+        JFrame infoFrame = new JFrame("Prescription Information");
+        infoFrame.setSize(500, 400);
+        infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JTextArea infoArea = new JTextArea();
+        infoArea.setEditable(false);
+        infoArea.setText("Prescription Information:\n");
+        infoArea.append("Patient Name: " + patientName + "\n");
+        infoArea.append("Date of Birth: " + dob + "\n");
+        infoArea.append("Medication Name: " + medicationName + "\n");
+        infoArea.append("Medication Date: " + medicationDate + "\n");
+        infoArea.append("Controlled Status: " + (isControlled ? "Yes" : "No") + "\n");
+        infoArea.append("Dosage: " + dosage + "\n");
+        infoArea.append("Physician Name: " + physicianName + "\n");
+        infoArea.append("Instructions: " + instructions + "\n");
+
+        JScrollPane scrollPane = new JScrollPane(infoArea);
+        infoFrame.add(scrollPane);
+
+        infoFrame.setVisible(true);
     }
 
     public static void main(String[] args) {
