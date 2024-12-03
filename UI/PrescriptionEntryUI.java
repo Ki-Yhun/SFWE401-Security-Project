@@ -20,6 +20,7 @@ public class PrescriptionEntryUI implements ActionListener {
     private static JLabel instructionsLabel;
     private static JTextField instructionsField;
     private static JButton enterButton;
+    private static JButton backButton;
     private static JFrame entryFrame;   // Class-level JFrame reference so we can close ui when done with entry
 
     public Prescription prescription;
@@ -122,6 +123,18 @@ public class PrescriptionEntryUI implements ActionListener {
         enterButton.setBounds(labelX, startY + 8 * ySpacing, 100, height);
         enterButton.addActionListener(new PrescriptionEntryUI());
         entryPanel.add(enterButton);
+
+        // Back Button
+        backButton = new JButton("Back");
+        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DashboardUI(); // Navigate back to the dashboard
+                entryFrame.dispose(); // Close the current frame
+            }
+        });
+        entryPanel.add(backButton);
 
         // Revalidate and repaint the panel
         entryPanel.revalidate();

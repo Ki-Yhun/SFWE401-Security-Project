@@ -1,8 +1,3 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;                   // For teh jTextArea
@@ -15,6 +10,7 @@ public class PatientEntryUI implements ActionListener {
     private static JLabel contactInfoLabel;
     private static JTextField contactInfoField;
     private static JButton enterButton;
+    private static JButton backButton;
     private static JFrame entryFrame; // Store the PatientEntryUI JFrame reference in class so we can close it once information is entered
 
     public Patient patient;
@@ -70,6 +66,18 @@ public class PatientEntryUI implements ActionListener {
         enterButton.setBounds(labelX, startY + 3 * ySpacing, 100, height);
         enterButton.addActionListener(new PatientEntryUI());
         entryPanel.add(enterButton);
+
+        // Back Button
+        backButton = new JButton("Back");
+        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DashboardUI(); // Navigate back to the dashboard
+                entryFrame.dispose(); // Close the current frame
+            }
+        });
+        entryPanel.add(backButton);
 
         // Revalidate and repaint the panel
         entryPanel.revalidate();

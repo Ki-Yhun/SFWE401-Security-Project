@@ -14,6 +14,7 @@ public class PrescriptionRefillRequestUI implements ActionListener {
     private static JLabel additionalDetailsLabel;
     private static JTextArea additionalDetailsArea;
     private static JButton submitButton;
+    private static JButton backButton; 
     private static JFrame refillFrame;
 
     public static void initPrescriptionRefillRequestUI() {
@@ -89,6 +90,18 @@ public class PrescriptionRefillRequestUI implements ActionListener {
         submitButton.setBounds(labelX, startY + 7 * ySpacing + 100, 200, height);
         submitButton.addActionListener(new PrescriptionRefillRequestUI());
         refillPanel.add(submitButton);
+
+        // Back Button
+        backButton = new JButton("Back");
+        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DashboardUI(); // Navigate back to the dashboard
+                refillFrame.dispose(); // Close the current frame
+            }
+        });
+        refillPanel.add(backButton);
 
         refillPanel.revalidate();
         refillPanel.repaint();

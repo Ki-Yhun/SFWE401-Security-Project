@@ -15,6 +15,7 @@ public class InsuranceEntryUI implements ActionListener {
     private static JTextField endDateField;
     private static JLabel policyHolderNameLabel;
     private static JTextField policyHolderNameField;
+    private static JButton backButton; 
     private static JButton enterButton;
     private static JFrame entryFrame;
 
@@ -97,6 +98,18 @@ public class InsuranceEntryUI implements ActionListener {
         enterButton.setBounds(labelX, startY + 6 * ySpacing, 100, height);
         enterButton.addActionListener(new InsuranceEntryUI());
         entryPanel.add(enterButton);
+
+        // Back Button
+        backButton = new JButton("Back");
+        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DashboardUI(); // Navigate back to the dashboard
+                entryFrame.dispose(); // Close the current frame
+            }
+        });
+        entryPanel.add(backButton);
 
         // Revalidate and repaint the panel
         entryPanel.revalidate();

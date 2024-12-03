@@ -14,6 +14,7 @@ public class NotificationUI implements ActionListener {
     private static JLabel phoneCallTimeLabel;
     private static JComboBox<String> phoneCallTimeDropdown;
     private static JButton saveButton;
+    private static JButton backButton;
     private static JFrame notificationFrame;
 
     public static void initNotificationUI() {
@@ -85,6 +86,18 @@ public class NotificationUI implements ActionListener {
         saveButton.setBounds(labelX, startY + 7 * ySpacing, 150, height);
         saveButton.addActionListener(new NotificationUI());
         notificationPanel.add(saveButton);
+
+        // Back Button
+        backButton = new JButton("Back");
+        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DashboardUI(); // Navigate back to the dashboard
+                notificationFrame.dispose(); // Close the current frame
+            }
+        });
+        notificationPanel.add(backButton);
 
         // Revalidate and repaint the panel
         notificationPanel.revalidate();
