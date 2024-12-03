@@ -33,6 +33,16 @@ public class DashboardUI {
         prescriptionEntryButton.setBounds(120, 140, 150, 25);
         panel.add(prescriptionEntryButton);
 
+        // Insurance Entry Button
+        JButton insuranceEntryButton = new JButton("Insurance Entry");
+        insuranceEntryButton.setBounds(120, 160, 150, 25);
+        panel.add(insuranceEntryButton);
+
+        // Notification Preferences Button
+        JButton notificationPreferencesButton = new JButton("Notification Preferences");
+        notificationPreferencesButton.setBounds(120, 200, 150, 25);
+        panel.add(notificationPreferencesButton);
+
         // Action Listener to open Inventory Report Selection
         generateReportButton.addActionListener(new ActionListener() {
             @Override
@@ -56,6 +66,24 @@ public class DashboardUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrescriptionEntryUI.initPrescriptionEntryUi();                 // Uses static initialization since there isnt a "initPatientEntryUI()" in the constructor
+                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
+            }
+        });
+
+        //Action Listener for Insurance Entry
+        insuranceEntryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InsuranceEntryUI.initInsuranceEntryUI(); // Assuming static init method
+                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
+            }
+        });
+
+        // Action Listener for Notification Preferences
+        notificationPreferencesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NotificationUI.initNotificationUI(); // Assuming static init method
                 ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
             }
         });
