@@ -18,30 +18,30 @@ public class User {
         this.lastName = "";
     }
     //Get
-    void setuserName(String userName) {
+    public void setuserName(String userName) {
         this.userName = userName;
 
     }
-    void setpassword(String password) {
+    public void setpassword(String password) {
         this.password = password;
     }
-    void setfirstName(String firstName) {
+    public void setfirstName(String firstName) {
         this.firstName = firstName;
     }
-    void setlastName(String lastName) {
+    public void setlastName(String lastName) {
         this.lastName = lastName;
     }
     //Set
-    String getuserName() {
+    public String getuserName() {
         return userName;
     }
-    String getpassword() {
+    public String getpassword() {
         return password;
     }
-    String getfirstName() {
+    public String getfirstName() {
         return firstName;
     }
-    String getlastName() {
+    public String getlastName() {
         return lastName;
     }
 
