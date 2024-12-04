@@ -1,175 +1,305 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class DashboardUI {
 
     private JLabel notificationBar;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
 
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
 
-        int windowWidth = 450;
+        int windowWidth = 800;
         int windowHeight = 650;
-        
+
         dashboardFrame.setSize(windowWidth, windowHeight);
         dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Minimum Size
+        // Minimum Size
         dashboardFrame.setMinimumSize(new Dimension(windowWidth, windowHeight));
 
-        JPanel panel = new JPanel();
-        dashboardFrame.add(panel);
-        panel.setLayout(new BorderLayout());
+        // Main Panel with CardLayout for view switching
+        mainPanel = new JPanel();
+        cardLayout = new CardLayout();
+        mainPanel.setLayout(cardLayout);
 
-        // Add Notification Bar
+        dashboardFrame.add(mainPanel, BorderLayout.CENTER);
+
+        // Notification Panel (on top)
+        JPanel notificationPanel = new JPanel();
+        notificationPanel.setLayout(new BorderLayout());
         notificationBar = new JLabel("No new notifications", JLabel.CENTER);
-        notificationBar.setPreferredSize(new Dimension(windowWidth, 30)); 
-        notificationBar.setBackground(Color.GREEN); 
-        notificationBar.setOpaque(true); 
+        notificationBar.setPreferredSize(new Dimension(windowWidth, 30));
+        notificationBar.setBackground(Color.GREEN);
+        notificationBar.setOpaque(true);
         notificationBar.setFont(new Font("Arial", Font.BOLD, 14));
         notificationBar.setForeground(Color.BLACK);
-        panel.add(notificationBar, BorderLayout.NORTH); 
+        notificationPanel.add(notificationBar, BorderLayout.NORTH);
+        dashboardFrame.add(notificationPanel, BorderLayout.NORTH);
 
-        //check for alerts
+        // Check for alerts
         checkForAlerts();
 
-        
+        // Create button panel (placed at the bottom)
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(0, 1, 10, 10)); 
-        panel.add(buttonPanel, BorderLayout.CENTER);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); 
+        createDashboardButtons(buttonPanel);
+        dashboardFrame.add(buttonPanel, BorderLayout.SOUTH); 
 
-        placeComponents(buttonPanel);
+        // Create different panels for each section
+        JPanel patientManagementPanel = createPatientManagementPanel();
+        JPanel pharmacyReportsPanel = createPharmacyReportsPanel();
+
+        /
+        mainPanel.add(patientManagementPanel, "Patient Management");
+        mainPanel.add(pharmacyReportsPanel, "Pharmacy Reports");
+
+        
+        cardLayout.show(mainPanel, "Patient Management");
 
         dashboardFrame.setVisible(true);
     }
 
-    private void placeComponents(JPanel buttonPanel) {
+    private void createDashboardButtons(JPanel panel) {
+        // Create buttons to navigate between sections
+        JButton patentManagementButton = createButton("Patient Management", "patientManagement");
+        panel.add(patentManagementButton);
 
-        // Button creation and action listeners
-        JButton patientEntryButton = createButton("Patient Entry", buttonPanel, "patient");
-
-        JButton prescriptionEntryButton = createButton("Prescription Entry", buttonPanel, "prescription");
-
-        JButton insuranceEntryButton = createButton("Insurance Entry", buttonPanel, "insurance");
-
-        JButton prescriptionRefillRequestButton = createButton("Refill Request", buttonPanel, "refill");
-
-        JButton refillReportButton = createButton("Refill Report", buttonPanel, "refillReport");
-
-        JButton salesReportButton = createButton("Sales Report", buttonPanel, "sales");
-
-        JButton generateReportButton = createButton("Inventory Report", buttonPanel, "inventory");
-
-        JButton complianceReportButton = createButton("Compliance Report", buttonPanel, "compliance");
-
-        JButton financialReportButton = createButton("Financial Summary Report", buttonPanel, "financial");
-
-        JButton userActivityReportButton = createButton("User Activity Report", buttonPanel, "userActivity");
-
-        JButton archivedUserDataReportButton = createButton("Archived User Data Report", buttonPanel, "archivedData");
-
-        JButton expiredMedicationsReportButton = createButton("Expired Medications Report", buttonPanel, "expiredMedications");
-
-        JButton notificationPreferencesButton = createButton("Notification Preferences", buttonPanel, "notification");
+        JButton pharmacyReportsButton = createButton("Pharmacy Reports", "pharmacyReports");
+        panel.add(pharmacyReportsButton);
     }
 
-    private JButton createButton(String label, JPanel buttonPanel, String action) {
+    private JButton createButton(String label, String actionCommand) {
         JButton button = new JButton(label);
-        button.setPreferredSize(new Dimension(200, 30));
-        buttonPanel.add(button);
-
-        // Action listener for each button
-        button.addActionListener(e -> {
-            // Call the appropriate method based on the action string
-            switch (action) {
-                case "sales":
-                    SalesReportUI.initSalesReportUI();
-                    break;
-                case "inventory":
-                    new InventoryReportSelectionUI();
-                    break;
-                case "patient":
-                    PatientEntryUI.initPatientEntryUI();
-                    break;
-                case "prescription":
-                    PrescriptionEntryUI.initPrescriptionEntryUi();
-                    break;
-                case "insurance":
-                    InsuranceEntryUI.initInsuranceEntryUI();
-                    break;
-                case "notification":
-                    NotificationUI.initNotificationUI();
-                    break;
-                case "refill":
-                    PrescriptionRefillRequestUI.initPrescriptionRefillRequestUI();
-                    break;
-                case "compliance":
-                    ComplianceReportUI.initComplianceReportUI();
-                    break;
-                case "refillReport":
-                    PrescriptionRefillReportUI.initPrescriptionRefillReportUI();
-                    break;
-                case "financial":
-                    FinancialSummaryReportUI.initFinancialSummaryReportUI();
-                    break;
-                case "userActivity":
-                    UserActivityReportUI.initUserActivityReportUI();
-                    break;
-                case "archivedData":
-                    ArchivedUserDataReportUI.initArchivedUserDataReportUI();
-                    break;
-                case "expiredMedications":
-                    ExpiredMedicationsReportUI.initExpiredMedicationsReportUI();
-                    break;
-            }
-
-            //Close window after opening new UI
-            ((JFrame) SwingUtilities.getWindowAncestor(buttonPanel)).dispose();
-        });
-
+        button.setActionCommand(actionCommand);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        button.addActionListener(new DashboardButtonListener());
         return button;
     }
 
-    public void updateNotification(String message, boolean isAlert, boolean isCritical) {
-        notificationBar.setText(message);
-    
-        if (isCritical) {
-            // Set the notification to red with white text for critical alerts like expired or recalled
-            notificationBar.setBackground(Color.RED); 
-            notificationBar.setForeground(Color.WHITE); 
-        } else if (isAlert) {
-            // Set to yellow background with black text for other alerts
-            notificationBar.setBackground(Color.YELLOW); 
-            notificationBar.setForeground(Color.BLACK);
-        } else {
-            // No alerts: green background with black text
-            notificationBar.setBackground(Color.GREEN); 
-            notificationBar.setForeground(Color.BLACK); 
-        }
+    private JPanel createPatientManagementPanel() {
+        JPanel patientManagementPanel = new JPanel();
+        patientManagementPanel.setLayout(new GridBagLayout());
+
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;  
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;  
+        gbc.weighty = 1.0;  
+        gbc.insets = new Insets(10, 10, 10, 10); 
+
+        
+        patientManagementPanel.add(createButton("Patient Entry", "patientEntry"), gbc);
+
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Prescription Entry", "prescriptionEntry"), gbc);
+
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Insurance Entry", "insuranceEntry"), gbc);
+
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Refill Request", "refillRequest"), gbc);
+
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Notification Preferences", "notificationPreferences"), gbc);
+
+        return patientManagementPanel;
     }
+
+    private JPanel createPharmacyReportsPanel() {
+        JPanel pharmacyReportsPanel = new JPanel();
+        pharmacyReportsPanel.setLayout(new GridBagLayout()); 
+
     
-    public void checkForAlerts() {
-        boolean lowStock = false;  //Change for testing
-        boolean recall = true;   //Change for testing
-        boolean expired = false;   //Change for testing
-    
-        if (expired) {
-            updateNotification("Alert: Some medications are close to their expiry date!", true, false); // Regular alert
-        } else if (recall) {
-            updateNotification("Alert: Product recall issued for: Batch A443, Name: Tyzera, 80 units. Dispose of all stock Immediately", true, true); // Critical alert
-        } else if (lowStock) {
-            updateNotification("Alert: Low stock on some items!", true, false); // Regular alert
-        } else {
-            updateNotification("No new notifications", false, false); // No alert
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH; 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;  
+        gbc.weighty = 1.0; 
+        gbc.insets = new Insets(10, 10, 10, 10); 
+
+        pharmacyReportsPanel.add(createButton("Refill Report", "refillReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Sales Report", "salesReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Inventory Report", "inventoryReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Compliance Report", "complianceReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Financial Summary Report", "financialReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("User Activity Report", "userActivityReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Archived User Data Report", "archivedUserDataReport"), gbc);
+
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Expired Medications Report", "expiredMedicationsReport"), gbc);
+
+        return pharmacyReportsPanel;
+    }
+
+    // Action Listener
+    private class DashboardButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            switch (command) {
+                case "patientManagement":
+                    cardLayout.show(mainPanel, "Patient Management");
+                    break;
+                case "pharmacyReports":
+                    cardLayout.show(mainPanel, "Pharmacy Reports");
+                    break;
+
+                // Patient Management actions
+                case "patientEntry":
+                    showPatientEntryUI();
+                    break;
+                case "prescriptionEntry":
+                    showPrescriptionEntryUI();
+                    break;
+                case "insuranceEntry":
+                    showInsuranceEntryUI();
+                    break;
+                case "refillRequest":
+                    showRefillRequestUI();
+                    break;
+                case "notificationPreferences":
+                    showNotificationPreferencesUI();
+                    break;
+
+                case "refillReport":
+                    showRefillReportUI();
+                    break;
+                case "salesReport":
+                    showSalesReportUI();
+                    break;
+                case "inventoryReport":
+                    showInventoryReportUI();  
+                    break;
+                case "complianceReport":
+                    showComplianceReportUI();
+                    break;
+                case "financialReport":
+                    showFinancialSummaryReportUI();
+                    break;
+                case "userActivityReport":
+                    showUserActivityReportUI();
+                    break;
+                case "archivedUserDataReport":
+                    showArchivedUserDataReportUI();
+                    break;
+                case "expiredMedicationsReport":
+                    showExpiredMedicationsReportUI();
+                    break;
+
+                default:
+                    System.out.println("Unknown action: " + command);
+                    break;
+            }
         }
     }
 
-    /* Main method to test the dashboard
+   
+    private void showPatientEntryUI() {
+        PatientEntryUI.initPatientEntryUI(); 
+    }
+
+    private void showPrescriptionEntryUI() {
+        PrescriptionEntryUI.initPrescriptionEntryUi(); 
+    }
+
+    private void showInsuranceEntryUI() {
+        InsuranceEntryUI.initInsuranceEntryUI(); 
+    }
+
+    private void showRefillRequestUI() {
+        PrescriptionRefillRequestUI.initPrescriptionRefillRequestUI(); 
+    }
+
+    private void showNotificationPreferencesUI() {
+        NotificationUI.initNotificationUI(); 
+    }
+
+    private void showRefillReportUI() {
+        PrescriptionRefillReportUI.initPrescriptionRefillReportUI(); 
+    }
+
+    private void showSalesReportUI() {
+        SalesReportUI.initSalesReportUI(); 
+    }
+
+    private void showInventoryReportUI() {
+        new InventoryReportSelectionUI(); 
+    }
+
+    private void showComplianceReportUI() {
+        ComplianceReportUI.initComplianceReportUI(); 
+    }
+
+    private void showFinancialSummaryReportUI() {
+        FinancialSummaryReportUI.initFinancialSummaryReportUI(); 
+    }
+
+    private void showUserActivityReportUI() {
+        UserActivityReportUI.initUserActivityReportUI(); 
+    }
+
+    private void showArchivedUserDataReportUI() {
+        ArchivedUserDataReportUI.initArchivedUserDataReportUI(); 
+    }
+
+    private void showExpiredMedicationsReportUI() {
+        ExpiredMedicationsReportUI.initExpiredMedicationsReportUI(); 
+    }
+
+    // Notification section
+    public void updateNotification(String message, boolean isAlert, boolean isCritical) {
+        notificationBar.setText(message);
+
+        if (isCritical) {
+            notificationBar.setBackground(Color.RED);
+            notificationBar.setForeground(Color.WHITE);
+        } else if (isAlert) {
+            notificationBar.setBackground(Color.YELLOW);
+            notificationBar.setForeground(Color.BLACK);
+        } else {
+            notificationBar.setBackground(Color.GREEN);
+            notificationBar.setForeground(Color.BLACK);
+        }
+    }
+
+    public void checkForAlerts() {
+        boolean lowStock = false;  // Change for testing
+        boolean recall = true;   // Change for testing
+        boolean expired = false;   // Change for testing
+
+        if (expired) {
+            updateNotification("Alert: Some medications are close to their expiry date!", true, false);
+        } else if (recall) {
+            updateNotification("Alert: Product recall issued for: Batch A443, Name: Tyzera, 80 units. Dispose of all stock Immediately", true, true);
+        } else if (lowStock) {
+            updateNotification("Alert: Low stock on some items!", true, false);
+        } else {
+            updateNotification("No new notifications", false, false);
+        }
+    }
+
+    // Main method to test the dashboard
     public static void main(String[] args) {
         DashboardUI dashboard = new DashboardUI();
         dashboard.checkForAlerts(); // You can call this method to check for alerts at any time
-    }*/
+    }
 }
-
-
-
