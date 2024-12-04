@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.util.List;
 
+import Data.*;
+import PharmacyReports.*;
+
 public class InventoryReportSelectionUI {
     private JFrame selectionFrame;      // Instance-level JFrame reference so we can close the current frame
 
