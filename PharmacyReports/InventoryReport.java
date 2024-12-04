@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Data.Drug;
+//import Data.Drug; //it acted weird and the system didnt like it saying "java: package Data does not exist"
 
 public class InventoryReport {
     private final List<String[]> reportData;        // Medication report data (name, stock level, usage per week, usage per month, usage per year)

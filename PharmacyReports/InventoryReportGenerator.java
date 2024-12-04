@@ -2,8 +2,9 @@
 import javax.swing.*;
 import java.util.List;
 
-import PharmacyReports.InventoryReport;
-import Data.*;
+//import PharmacyReports.InventoryReport;
+//import Data.*;
+//it acted weird and the system didnt like it saying "java: package Data does not exist"
 
 public class InventoryReportGenerator {
 

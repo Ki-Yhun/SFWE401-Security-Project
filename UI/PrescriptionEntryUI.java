@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import Data.*;
+//import Data.*;    //it acted weird and the system didnt like it saying "java: package Data does not exist"
 
 public class PrescriptionEntryUI implements ActionListener {
     private static JLabel patientNameLabel;

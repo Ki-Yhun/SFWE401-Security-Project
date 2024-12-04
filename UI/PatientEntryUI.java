@@ -2,7 +2,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;                   // For teh jTextArea
 
-import Data.*;
+//import Data.*;    //it acted weird and the system didnt like it saying "java: package Data does not exist"
 
 public class PatientEntryUI implements ActionListener {
     private static JLabel patientNameLabel;

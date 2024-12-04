@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.util.List;
 
-import Data.*;
-import PharmacyReports.*;
+//went back to old one with no import, in this set up this report selection goes to
+//the inventory drug direcory and inventory report and inventory report generator already
+//seen in the generateReport section
 
 public class InventoryReportSelectionUI {
-    private JFrame selectionFrame;      // Instance-level JFrame reference so we can close the current frame
+    private JFrame selectionFrame; // Instance-level JFrame reference
 
     public InventoryReportSelectionUI() {
-        selectionFrame = new JFrame("Select Report Period");
+        selectionFrame = new JFrame("Select Report Period"); // Initialize JFrame
         selectionFrame.setSize(400, 300);
         selectionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -38,23 +39,22 @@ public class InventoryReportSelectionUI {
         yearlyButton.setBounds(270, 100, 100, 25);
         panel.add(yearlyButton);
 
-        // "Action listeners" for each button
-        weeklyButton.addActionListener(e -> generateReport("Weekly", panel));
-        monthlyButton.addActionListener(e -> generateReport("Monthly", panel));
-        yearlyButton.addActionListener(e -> generateReport("Yearly", panel));
+        // Action listeners for each button
+        weeklyButton.addActionListener(e -> generateReport("Weekly"));
+        monthlyButton.addActionListener(e -> generateReport("Monthly"));
+        yearlyButton.addActionListener(e -> generateReport("Yearly"));
 
         // Back Button
         JButton backButton = new JButton("Back");
         backButton.setBounds(150, 200, 100, 25);
         backButton.addActionListener(e -> {
-            new DashboardUI();
-            selectionFrame.dispose();
+            new DashboardUI(); // Navigate back to the dashboard
+            selectionFrame.dispose(); // Close the current frame
         });
         panel.add(backButton);
     }
 
-    // Method to handle report generation
-    private void generateReport(String period, JPanel panel) {
+    private void generateReport(String period) {
         // Fetch data from DrugDirectory
         DrugDirectory directory = new DrugDirectory();
         List<Drug> drugData = directory.getAllDrugs();
