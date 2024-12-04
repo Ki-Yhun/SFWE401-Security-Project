@@ -65,19 +65,19 @@ public class Drug {
 
 
     //Get
-    String getName() {
+    public String getName() {
         return this.name;
     }
-    String getExpirationDate() {
+    public String getExpirationDate() {
         return this.expirationDate;
     }
-    boolean getExpired() {
+    public boolean getExpired() {
         return this.expired;
     }
-    boolean getControlled() {
+    public boolean getControlled() {
         return this.controlled;
     }
-    float getInventory() {
+    public float getInventory() {
         return this.inventory;
     }
     public int getWeeklyUsage() { return this.weeklyUsage; }
