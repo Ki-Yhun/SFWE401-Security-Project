@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import UI.DashboardUI;
+
 public class NotificationUI implements ActionListener {
     private static JLabel notificationMethodLabel;
     private static JCheckBox smsCheckbox;
