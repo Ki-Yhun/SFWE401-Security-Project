@@ -53,7 +53,7 @@ public class DashboardUI {
         JPanel patientManagementPanel = createPatientManagementPanel();
         JPanel pharmacyReportsPanel = createPharmacyReportsPanel();
 
-        /
+        
         mainPanel.add(patientManagementPanel, "Patient Management");
         mainPanel.add(pharmacyReportsPanel, "Pharmacy Reports");
 
