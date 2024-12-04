@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Data.Drug;
+
 public class InventoryReport {
     private final List<String[]> reportData;        // Medication report data (name, stock level, usage per week, usage per month, usage per year)
     private final String reportPeriod;              // Time period for the report (Weekly, Monthly, Yearly)
