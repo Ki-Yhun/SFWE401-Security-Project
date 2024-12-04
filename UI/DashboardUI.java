@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class DashboardUI {
@@ -9,217 +7,127 @@ public class DashboardUI {
 
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
-        dashboardFrame.setSize(400, 600);
+
+        int windowWidth = 450;
+        int windowHeight = 650;
+        
+        dashboardFrame.setSize(windowWidth, windowHeight);
         dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Minimum Size
+        dashboardFrame.setMinimumSize(new Dimension(windowWidth, windowHeight));
 
         JPanel panel = new JPanel();
         dashboardFrame.add(panel);
+        panel.setLayout(new BorderLayout());
 
-        panel.setLayout(null);
-
-        //Adds Notification Bar with default alert setting
+        // Add Notification Bar
         notificationBar = new JLabel("No new notifications", JLabel.CENTER);
-        notificationBar.setBounds(0, 0, 400, 30);
+        notificationBar.setPreferredSize(new Dimension(windowWidth, 30)); 
         notificationBar.setBackground(Color.GREEN); 
         notificationBar.setOpaque(true); 
         notificationBar.setFont(new Font("Arial", Font.BOLD, 14));
         notificationBar.setForeground(Color.BLACK);
-        panel.add(notificationBar);
+        panel.add(notificationBar, BorderLayout.NORTH); 
 
-        //Checks alert Status of System
-
+        //check for alerts
         checkForAlerts();
 
-        placeComponents(panel);
+        
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(0, 1, 10, 10)); 
+        panel.add(buttonPanel, BorderLayout.CENTER);
+
+        placeComponents(buttonPanel);
 
         dashboardFrame.setVisible(true);
     }
 
-    private void placeComponents(JPanel panel) {
-        panel.setLayout(null);
+    private void placeComponents(JPanel buttonPanel) {
 
-        // Sales Report Button
-        JButton salesReportButton = new JButton("Sales Report");
-        salesReportButton.setBounds(120, 40, 150, 25);
-        panel.add(salesReportButton);
+        // Button creation and action listeners
+        JButton patientEntryButton = createButton("Patient Entry", buttonPanel, "patient");
 
-        // Inventory Report Button
-        JButton generateReportButton = new JButton("Inventory Report");
-        generateReportButton.setBounds(120, 80, 150, 25);
-        panel.add(generateReportButton);
+        JButton prescriptionEntryButton = createButton("Prescription Entry", buttonPanel, "prescription");
 
-        // Patient Entry Button
-        JButton patientEntryButton = new JButton("Patient Entry");
-        patientEntryButton.setBounds(120, 120, 150, 25);
-        panel.add(patientEntryButton);
+        JButton insuranceEntryButton = createButton("Insurance Entry", buttonPanel, "insurance");
 
-        // Prescription Entry Button
-        JButton prescriptionEntryButton = new JButton("Prescription Entry");
-        prescriptionEntryButton.setBounds(120, 160, 150, 25);
-        panel.add(prescriptionEntryButton);
+        JButton prescriptionRefillRequestButton = createButton("Refill Request", buttonPanel, "refill");
 
-        // Insurance Entry Button
-        JButton insuranceEntryButton = new JButton("Insurance Entry");
-        insuranceEntryButton.setBounds(120, 200, 150, 25);
-        panel.add(insuranceEntryButton);
+        JButton refillReportButton = createButton("Refill Report", buttonPanel, "refillReport");
 
-        // Notification Preferences Button
-        JButton notificationPreferencesButton = new JButton("Notification Preferences");
-        notificationPreferencesButton.setBounds(120, 240, 150, 25);
-        panel.add(notificationPreferencesButton);
+        JButton salesReportButton = createButton("Sales Report", buttonPanel, "sales");
 
-        // Prescription Refill Request Button
-        JButton prescriptionRefillRequestButton = new JButton("Refill Request");
-        prescriptionRefillRequestButton.setBounds(120, 280, 150, 25);
-        panel.add(prescriptionRefillRequestButton);
+        JButton generateReportButton = createButton("Inventory Report", buttonPanel, "inventory");
 
-        // Compliance Report Button
-        JButton complianceReportButton = new JButton("Compliance Report");
-        complianceReportButton.setBounds(120, 320, 150, 25);
-        panel.add(complianceReportButton);
+        JButton complianceReportButton = createButton("Compliance Report", buttonPanel, "compliance");
 
-        // Prescription Refill Report Button
-        JButton refillReportButton = new JButton("Refill Report");
-        refillReportButton.setBounds(120, 360, 150, 25);
-        panel.add(refillReportButton);
+        JButton financialReportButton = createButton("Financial Summary Report", buttonPanel, "financial");
 
-        // Financial Summary Report Button
-        JButton financialReportButton = new JButton("Financial Summary Report");
-        financialReportButton.setBounds(120, 400, 150, 25); // Adjust the y-coordinate as needed
-        panel.add(financialReportButton);
+        JButton userActivityReportButton = createButton("User Activity Report", buttonPanel, "userActivity");
 
-        // User Activity Report Button
-        JButton userActivityReportButton = new JButton("User Activity Report");
-        userActivityReportButton.setBounds(120, 440, 150, 25); // Adjust y-coordinate as needed
-        panel.add(userActivityReportButton);
+        JButton archivedUserDataReportButton = createButton("Archived User Data Report", buttonPanel, "archivedData");
 
-        // Archived User Data Report Button
-        JButton archivedUserDataReportButton = new JButton("Archived User Data Report");
-        archivedUserDataReportButton.setBounds(120, 480, 150, 25);
-        panel.add(archivedUserDataReportButton);
+        JButton expiredMedicationsReportButton = createButton("Expired Medications Report", buttonPanel, "expiredMedications");
 
-        // Expired Medication Report Buttton
-        JButton expiredMedicationsReportButton = new JButton("Expired Medications Report");
-        expiredMedicationsReportButton.setBounds(120, 520, 150, 25);
-        panel.add(expiredMedicationsReportButton);
+        JButton notificationPreferencesButton = createButton("Notification Preferences", buttonPanel, "notification");
+    }
 
-        // Action Listener for Sales Report
-        salesReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SalesReportUI.initSalesReportUI(); // Opens Sales Report UI
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
+    private JButton createButton(String label, JPanel buttonPanel, String action) {
+        JButton button = new JButton(label);
+        button.setPreferredSize(new Dimension(200, 30));
+        buttonPanel.add(button);
+
+        // Action listener for each button
+        button.addActionListener(e -> {
+            // Call the appropriate method based on the action string
+            switch (action) {
+                case "sales":
+                    SalesReportUI.initSalesReportUI();
+                    break;
+                case "inventory":
+                    new InventoryReportSelectionUI();
+                    break;
+                case "patient":
+                    PatientEntryUI.initPatientEntryUI();
+                    break;
+                case "prescription":
+                    PrescriptionEntryUI.initPrescriptionEntryUi();
+                    break;
+                case "insurance":
+                    InsuranceEntryUI.initInsuranceEntryUI();
+                    break;
+                case "notification":
+                    NotificationUI.initNotificationUI();
+                    break;
+                case "refill":
+                    PrescriptionRefillRequestUI.initPrescriptionRefillRequestUI();
+                    break;
+                case "compliance":
+                    ComplianceReportUI.initComplianceReportUI();
+                    break;
+                case "refillReport":
+                    PrescriptionRefillReportUI.initPrescriptionRefillReportUI();
+                    break;
+                case "financial":
+                    FinancialSummaryReportUI.initFinancialSummaryReportUI();
+                    break;
+                case "userActivity":
+                    UserActivityReportUI.initUserActivityReportUI();
+                    break;
+                case "archivedData":
+                    ArchivedUserDataReportUI.initArchivedUserDataReportUI();
+                    break;
+                case "expiredMedications":
+                    ExpiredMedicationsReportUI.initExpiredMedicationsReportUI();
+                    break;
             }
+
+            //Close window after opening new UI
+            ((JFrame) SwingUtilities.getWindowAncestor(buttonPanel)).dispose();
         });
 
-        // Action Listener to open Inventory Report Selection
-        generateReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new InventoryReportSelectionUI();                               // Create new instance becayse the class is designed as an indpenedt ui
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener to open Patient Entry Selection
-        patientEntryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PatientEntryUI.initPatientEntryUI();                            // Uses static initialization since there isnt a "initPatientEntryUI()" in the constructor
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener to open Prescription Entry Selection
-        prescriptionEntryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PrescriptionEntryUI.initPrescriptionEntryUi();                 // Uses static initialization since there isnt a "initPatientEntryUI()" in the constructor
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        //Action Listener for Insurance Entry
-        insuranceEntryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                InsuranceEntryUI.initInsuranceEntryUI(); // Assuming static init method
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Notification Preferences
-        notificationPreferencesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NotificationUI.initNotificationUI(); // Assuming static init method
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Prescription Refill Request
-        prescriptionRefillRequestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PrescriptionRefillRequestUI.initPrescriptionRefillRequestUI(); // Assuming static init method
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Compliance Report
-        complianceReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ComplianceReportUI.initComplianceReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Prescription Refill Report
-        refillReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PrescriptionRefillReportUI.initPrescriptionRefillReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Financial Summary Report
-        financialReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FinancialSummaryReportUI.initFinancialSummaryReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for User Activity Report
-        userActivityReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UserActivityReportUI.initUserActivityReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener forArchived User Date Reoptr
-        archivedUserDataReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArchivedUserDataReportUI.initArchivedUserDataReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
-        // Action Listener for Expired Meications Report
-        expiredMedicationsReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ExpiredMedicationsReportUI.initExpiredMedicationsReportUI();
-                ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
-            }
-        });
-
+        return button;
     }
 
     public void updateNotification(String message, boolean isAlert, boolean isCritical) {
@@ -230,7 +138,7 @@ public class DashboardUI {
             notificationBar.setBackground(Color.RED); 
             notificationBar.setForeground(Color.WHITE); 
         } else if (isAlert) {
-            // Set to yellow background with black text for other alerts (e.g., low stock)
+            // Set to yellow background with black text for other alerts
             notificationBar.setBackground(Color.YELLOW); 
             notificationBar.setForeground(Color.BLACK);
         } else {
@@ -242,13 +150,13 @@ public class DashboardUI {
     
     public void checkForAlerts() {
         boolean lowStock = false;  
-        boolean recall = false;   
-        boolean expired = true;   
+        boolean recall = true;   
+        boolean expired = false;   
     
         if (expired) {
-            updateNotification("Alert: Some medications are expired!", true, true); // Critical alert
+            updateNotification("Alert: Some medications are close to their expiry date!", true, false); // Regular alert
         } else if (recall) {
-            updateNotification("Alert: Product recall issued!", true, true); // Critical alert
+            updateNotification("Alert: Product recall issued for: Batch A443, Name: Tyzera, 80 units. Dispose of all stock Immediately", true, true); // Critical alert
         } else if (lowStock) {
             updateNotification("Alert: Low stock on some items!", true, false); // Regular alert
         } else {
@@ -261,7 +169,7 @@ public class DashboardUI {
         DashboardUI dashboard = new DashboardUI();
         dashboard.checkForAlerts(); // You can call this method to check for alerts at any time
     }
-
-
-
 }
+
+
+
