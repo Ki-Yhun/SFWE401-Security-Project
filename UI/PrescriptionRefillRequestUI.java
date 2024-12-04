@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import UI.*;
+
 public class PrescriptionRefillRequestUI implements ActionListener {
     private static JLabel patientNameLabel;
     private static JTextField patientNameField;
