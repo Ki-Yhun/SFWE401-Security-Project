@@ -2,6 +2,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;                   // For teh jTextArea
 
+import Data.*;
+
 public class PatientEntryUI implements ActionListener {
     private static JLabel patientNameLabel;
     private static JTextField patientNameField;
