@@ -1,49 +1,9 @@
-/*import java.util.Scanner;
-public class InventoryReportGenerator {
-    public void generateReport(InventoryReport report) {
-        System.out.println("~~~ Inventory Report for " + report.getReportPeriod() + " ~~~");
-        System.out.printf("%-20s %-15s %-15s %-15s%n", "Medication", "Stock Level", "Usage", "Turnover Rate");
-
-        // Fetch the enriched data with turnover rates
-        for (String[] drug : report.getTurnoverRateData()) {
-            System.out.printf("%-20s %-15s %-15s %-15s%n", drug[0], drug[1], drug[2], drug[3]);
-        }
-    }
-
-    public static void main(String[] args) {
-        // Fetch data from DrugDirectory
-        DrugDirectory directory = new DrugDirectory();
-    //ignore below
-        // Generate an InventoryReport based off weekly, monthly, yearly
-        //InventoryReport report = new InventoryReport(directory.getAllDrugs(), "Monthly");
-
-        // Display the report based off weekly, monthly, yearly
-        //InventoryReportGenerator generator = new InventoryReportGenerator();
-        //generator.generateReport(report);
-    //ignore above
-
-        // Prompt user for the report period
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Select the report period: Weekly, Monthly, or Yearly");
-        String period = scanner.nextLine().trim();  // get response, trimmed to fit
-
-        // Validate the user input and generate the report if good
-        try {
-            InventoryReport report = new InventoryReport(directory.getAllDrugs(), period);
-            InventoryReportGenerator generator = new InventoryReportGenerator();
-            generator.generateReport(report);
-        } catch (IllegalArgumentException e) {  // If user did not input an expected value
-            System.out.println("Invalid input. Please select either 'Weekly', 'Monthly', or 'Yearly'.");
-        }
-
-        scanner.close();    // Close the scanner to release resources
-    }
-}
-*/
 
 import javax.swing.*;
 import java.util.List;
 
+import PharmacyReports.InventoryReport;
+import Data.*;
 
 public class InventoryReportGenerator {
 
