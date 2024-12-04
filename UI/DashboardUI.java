@@ -20,8 +20,8 @@ public class DashboardUI {
         //Adds Notification Bar with default alert setting
         notificationBar = new JLabel("No new notifications", JLabel.CENTER);
         notificationBar.setBounds(0, 0, 400, 30);
-        notificationBar.setBackground(Color.GREEN); // Default background color is green (no alerts)
-        notificationBar.setOpaque(true);  // Make the background color visible
+        notificationBar.setBackground(Color.GREEN); 
+        notificationBar.setOpaque(true); 
         notificationBar.setFont(new Font("Arial", Font.BOLD, 14));
         notificationBar.setForeground(Color.BLACK);
         panel.add(notificationBar);
@@ -227,23 +227,23 @@ public class DashboardUI {
     
         if (isCritical) {
             // Set the notification to red with white text for critical alerts like expired or recalled
-            notificationBar.setBackground(Color.RED); // Critical alerts: red background
-            notificationBar.setForeground(Color.WHITE); // White text for critical alerts
+            notificationBar.setBackground(Color.RED); 
+            notificationBar.setForeground(Color.WHITE); 
         } else if (isAlert) {
             // Set to yellow background with black text for other alerts (e.g., low stock)
-            notificationBar.setBackground(Color.YELLOW); // Alert state, background set to yellow
-            notificationBar.setForeground(Color.BLACK); // Black text for regular alerts
+            notificationBar.setBackground(Color.YELLOW); 
+            notificationBar.setForeground(Color.BLACK);
         } else {
             // No alerts: green background with black text
-            notificationBar.setBackground(Color.GREEN); // No alerts, background set to green
-            notificationBar.setForeground(Color.BLACK); // Black text for no alerts
+            notificationBar.setBackground(Color.GREEN); 
+            notificationBar.setForeground(Color.BLACK); 
         }
     }
     
     public void checkForAlerts() {
-        boolean lowStock = false;  // Example condition for low stock
-        boolean recall = false;     // Example condition for recall (set to true for testing)
-        boolean expired = true;   // Example condition for expired products (set to false for testing)
+        boolean lowStock = false;  
+        boolean recall = false;   
+        boolean expired = true;   
     
         if (expired) {
             updateNotification("Alert: Some medications are expired!", true, true); // Critical alert
