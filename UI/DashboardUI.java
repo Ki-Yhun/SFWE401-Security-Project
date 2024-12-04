@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 public class DashboardUI {
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
-        dashboardFrame.setSize(400, 300);
+        dashboardFrame.setSize(400, 500);
         dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();

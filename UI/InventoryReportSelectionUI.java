@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.util.List;
 
 public class InventoryReportSelectionUI {
+    private JFrame selectionFrame;      // Instance-level JFrame reference so we can close the current frame
+
     public InventoryReportSelectionUI() {
-        JFrame selectionFrame = new JFrame("Select Report Period");
+        selectionFrame = new JFrame("Select Report Period");
         selectionFrame.setSize(400, 300);
         selectionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -37,6 +39,15 @@ public class InventoryReportSelectionUI {
         weeklyButton.addActionListener(e -> generateReport("Weekly", panel));
         monthlyButton.addActionListener(e -> generateReport("Monthly", panel));
         yearlyButton.addActionListener(e -> generateReport("Yearly", panel));
+
+        // Back Button
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(150, 200, 100, 25);
+        backButton.addActionListener(e -> {
+            new DashboardUI();
+            selectionFrame.dispose();
+        });
+        panel.add(backButton);
     }
 
     // Method to handle report generation
@@ -53,6 +64,6 @@ public class InventoryReportSelectionUI {
         generator.generateAndDisplayReport(report);
 
         // Close the current frame
-        ((JFrame) SwingUtilities.getWindowAncestor(panel)).dispose();
+        selectionFrame.dispose();
     }
 }
