@@ -149,9 +149,9 @@ public class DashboardUI {
     }
     
     public void checkForAlerts() {
-        boolean lowStock = false;  
-        boolean recall = true;   
-        boolean expired = false;   
+        boolean lowStock = false;  //Change for testing
+        boolean recall = true;   //Change for testing
+        boolean expired = false;   //Change for testing
     
         if (expired) {
             updateNotification("Alert: Some medications are close to their expiry date!", true, false); // Regular alert
@@ -164,11 +164,11 @@ public class DashboardUI {
         }
     }
 
-    // Main method to test the dashboard
+    /* Main method to test the dashboard
     public static void main(String[] args) {
         DashboardUI dashboard = new DashboardUI();
         dashboard.checkForAlerts(); // You can call this method to check for alerts at any time
-    }
+    }*/
 }
 
 
