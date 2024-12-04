@@ -1,15 +1,35 @@
-import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class DashboardUI {
+
+    private JLabel notificationBar;
+
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
-        dashboardFrame.setSize(400, 580);
+        dashboardFrame.setSize(400, 600);
         dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
         dashboardFrame.add(panel);
+
+        panel.setLayout(null);
+
+        //Adds Notification Bar with default alert setting
+        notificationBar = new JLabel("No new notifications", JLabel.CENTER);
+        notificationBar.setBounds(0, 0, 400, 30);
+        notificationBar.setBackground(Color.GREEN); // Default background color is green (no alerts)
+        notificationBar.setOpaque(true);  // Make the background color visible
+        notificationBar.setFont(new Font("Arial", Font.BOLD, 14));
+        notificationBar.setForeground(Color.BLACK);
+        panel.add(notificationBar);
+
+        //Checks alert Status of System
+
+        checkForAlerts();
+
         placeComponents(panel);
 
         dashboardFrame.setVisible(true);
@@ -20,67 +40,67 @@ public class DashboardUI {
 
         // Sales Report Button
         JButton salesReportButton = new JButton("Sales Report");
-        salesReportButton.setBounds(120, 20, 150, 25);
+        salesReportButton.setBounds(120, 40, 150, 25);
         panel.add(salesReportButton);
 
         // Inventory Report Button
         JButton generateReportButton = new JButton("Inventory Report");
-        generateReportButton.setBounds(120, 60, 150, 25);
+        generateReportButton.setBounds(120, 80, 150, 25);
         panel.add(generateReportButton);
 
         // Patient Entry Button
         JButton patientEntryButton = new JButton("Patient Entry");
-        patientEntryButton.setBounds(120, 100, 150, 25);
+        patientEntryButton.setBounds(120, 120, 150, 25);
         panel.add(patientEntryButton);
 
         // Prescription Entry Button
         JButton prescriptionEntryButton = new JButton("Prescription Entry");
-        prescriptionEntryButton.setBounds(120, 140, 150, 25);
+        prescriptionEntryButton.setBounds(120, 160, 150, 25);
         panel.add(prescriptionEntryButton);
 
         // Insurance Entry Button
         JButton insuranceEntryButton = new JButton("Insurance Entry");
-        insuranceEntryButton.setBounds(120, 180, 150, 25);
+        insuranceEntryButton.setBounds(120, 200, 150, 25);
         panel.add(insuranceEntryButton);
 
         // Notification Preferences Button
         JButton notificationPreferencesButton = new JButton("Notification Preferences");
-        notificationPreferencesButton.setBounds(120, 220, 150, 25);
+        notificationPreferencesButton.setBounds(120, 240, 150, 25);
         panel.add(notificationPreferencesButton);
 
         // Prescription Refill Request Button
         JButton prescriptionRefillRequestButton = new JButton("Refill Request");
-        prescriptionRefillRequestButton.setBounds(120, 260, 150, 25);
+        prescriptionRefillRequestButton.setBounds(120, 280, 150, 25);
         panel.add(prescriptionRefillRequestButton);
 
         // Compliance Report Button
         JButton complianceReportButton = new JButton("Compliance Report");
-        complianceReportButton.setBounds(120, 300, 150, 25);
+        complianceReportButton.setBounds(120, 320, 150, 25);
         panel.add(complianceReportButton);
 
         // Prescription Refill Report Button
         JButton refillReportButton = new JButton("Refill Report");
-        refillReportButton.setBounds(120, 340, 150, 25);
+        refillReportButton.setBounds(120, 360, 150, 25);
         panel.add(refillReportButton);
 
         // Financial Summary Report Button
         JButton financialReportButton = new JButton("Financial Summary Report");
-        financialReportButton.setBounds(120, 380, 150, 25); // Adjust the y-coordinate as needed
+        financialReportButton.setBounds(120, 400, 150, 25); // Adjust the y-coordinate as needed
         panel.add(financialReportButton);
 
         // User Activity Report Button
         JButton userActivityReportButton = new JButton("User Activity Report");
-        userActivityReportButton.setBounds(120, 420, 150, 25); // Adjust y-coordinate as needed
+        userActivityReportButton.setBounds(120, 440, 150, 25); // Adjust y-coordinate as needed
         panel.add(userActivityReportButton);
 
         // Archived User Data Report Button
         JButton archivedUserDataReportButton = new JButton("Archived User Data Report");
-        archivedUserDataReportButton.setBounds(120, 460, 150, 25);
+        archivedUserDataReportButton.setBounds(120, 480, 150, 25);
         panel.add(archivedUserDataReportButton);
 
         // Expired Medication Report Buttton
         JButton expiredMedicationsReportButton = new JButton("Expired Medications Report");
-        expiredMedicationsReportButton.setBounds(120, 500, 150, 25);
+        expiredMedicationsReportButton.setBounds(120, 520, 150, 25);
         panel.add(expiredMedicationsReportButton);
 
         // Action Listener for Sales Report
@@ -201,4 +221,47 @@ public class DashboardUI {
         });
 
     }
+
+    public void updateNotification(String message, boolean isAlert, boolean isCritical) {
+        notificationBar.setText(message);
+    
+        if (isCritical) {
+            // Set the notification to red with white text for critical alerts like expired or recalled
+            notificationBar.setBackground(Color.RED); // Critical alerts: red background
+            notificationBar.setForeground(Color.WHITE); // White text for critical alerts
+        } else if (isAlert) {
+            // Set to yellow background with black text for other alerts (e.g., low stock)
+            notificationBar.setBackground(Color.YELLOW); // Alert state, background set to yellow
+            notificationBar.setForeground(Color.BLACK); // Black text for regular alerts
+        } else {
+            // No alerts: green background with black text
+            notificationBar.setBackground(Color.GREEN); // No alerts, background set to green
+            notificationBar.setForeground(Color.BLACK); // Black text for no alerts
+        }
+    }
+    
+    public void checkForAlerts() {
+        boolean lowStock = false;  // Example condition for low stock
+        boolean recall = false;     // Example condition for recall (set to true for testing)
+        boolean expired = true;   // Example condition for expired products (set to false for testing)
+    
+        if (expired) {
+            updateNotification("Alert: Some medications are expired!", true, true); // Critical alert
+        } else if (recall) {
+            updateNotification("Alert: Product recall issued!", true, true); // Critical alert
+        } else if (lowStock) {
+            updateNotification("Alert: Low stock on some items!", true, false); // Regular alert
+        } else {
+            updateNotification("No new notifications", false, false); // No alert
+        }
+    }
+
+    // Main method to test the dashboard
+    public static void main(String[] args) {
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.checkForAlerts(); // You can call this method to check for alerts at any time
+    }
+
+
+
 }
