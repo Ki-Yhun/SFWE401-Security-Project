@@ -23,7 +23,7 @@ public class PrescriptionEntryUI implements ActionListener {
     private static JTextField instructionsField;
     private static JButton enterButton;
     private static JButton backButton;
-    private static JFrame entryFrame;   // Class-level JFrame reference so we can close ui when done with entry
+    private static JFrame entryFrame;   // Class-level JFrame reference so we can close UI when done with entry
 
     public Prescription prescription;
     public Patient patient; 
@@ -31,7 +31,7 @@ public class PrescriptionEntryUI implements ActionListener {
 
     public static void initPrescriptionEntryUi() {
         JPanel entryPanel = new JPanel();
-        entryFrame = new JFrame("Prescription Entry");  // JFrame decleration moved from local to above at class level
+        entryFrame = new JFrame("Prescription Entry");
 
         entryFrame.setSize(500, 500);
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,12 +83,12 @@ public class PrescriptionEntryUI implements ActionListener {
         medicationDateField = new JTextField();
         medicationDateField.setBounds(fieldX, startY + 3 * ySpacing, fieldWidth, height);
         entryPanel.add(medicationDateField);
- 
+
         // Controlled Status
         controlledStatusLabel = new JLabel("Controlled Status:");
         controlledStatusLabel.setBounds(labelX, startY + 4 * ySpacing, labelWidth, height);
         entryPanel.add(controlledStatusLabel);
- 
+
         controlledStatusCheckbox = new JCheckBox("Controlled");
         controlledStatusCheckbox.setBounds(fieldX, startY + 4 * ySpacing, fieldWidth, height);
         entryPanel.add(controlledStatusCheckbox);
@@ -146,8 +146,6 @@ public class PrescriptionEntryUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterButton) {
-            String firstName;
-            String lastName;
             String patientName = patientNameField.getText().trim();
             String dob = dobField.getText();
             String medicationName = medicationNameField.getText();
@@ -157,9 +155,16 @@ public class PrescriptionEntryUI implements ActionListener {
             String physicianName = physicianNameField.getText();
             String instructions = instructionsField.getText();
 
+            
+            if (checkForDrugInteractions(medicationName)) {
+                return; 
+            }
+
             float dosageValue = Float.parseFloat(dosage);
 
             // Split patient name into first and last names
+            String firstName = "";
+            String lastName = "";
             if (patientName.contains(" ")) {
                 String[] nameParts = patientName.split(" ", 2);
                 firstName = nameParts[0];
@@ -180,49 +185,43 @@ public class PrescriptionEntryUI implements ActionListener {
                 drug = new Drug("", "", false);
             }
 
-            if(firstName.equals(patient.getfirstName()) && lastName.equals(patient.getlastName())){                         // Patient exists
-                if(medicationName.equals(drug.getName())){                                                                  // Drug exists 
-                    prescription = new Prescription(patient, drug, dosageValue, instructions);                              // Make new prescription on exisiting patient and drug
-                }
-                else {
-                    drug = new Drug(medicationName, medicationDate, isControlled);                                          // Patient exists but Drug does not
-                    prescription = new Prescription(patient, drug, dosageValue, instructions);                              // Make new prescription on exisitng patient and new drug
-                }
-            }
-            else{                                                                                                          // Patient does not exist 
-                if(medicationName.equals(drug.getName())){
-                    patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);    // Make new patient
-                    patient.setDOB(dob);                                                                                   // Make new prescription based on new patient and existing drug
-                    prescription = new Prescription(patient, drug, dosageValue, instructions);
-                }
-                else {                                                                                                     // Patient and drug does not exist
-                    drug = new Drug(medicationName, medicationDate, isControlled);                                         // Make new drug
-                    patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);    // Make new patient
-                    patient.setDOB(dob); 
-                    prescription = new Prescription(patient, drug, dosageValue, instructions);                             // Make new prescription based on new patient and drug
-                }
-
-            }
-
-            // Close the current PrescriptionEntryUI
             entryFrame.dispose();
 
-            // Open a new UI window to display the entered information
             showPrescriptionInfoUI(patientName, dob, medicationName, medicationDate, isControlled, dosage, physicianName, instructions);
-
-            /* OLD TO PRINT TO CONSOLE WAY
-            // Process the data (for now, just print to the console)
-            System.out.println("Patient Name: " + patientName);
-            System.out.println("Date of Birth: " + dob);
-            System.out.println("Medication Name: " + medicationName);
-            System.out.println("Dosage: " + dosage);
-            System.out.println("Physician Name: " + physicianName);
-            System.out.println("Instructions: " + instructions);
-            */
         }
     }
 
-    //  New UI to display entered information
+    // check drug interactions
+    private boolean checkForDrugInteractions(String medicationName) {
+        // Simulate a check
+        if ("Aspirin".equalsIgnoreCase(medicationName)) {
+            showDrugInteractionAlert("Aspirin", "Ibuprofen", "Contradictory medical combination: Both are NSAIDs, which may increase risk of stomach bleeding.");
+            return true; 
+        } else if ("Penicillin".equalsIgnoreCase(medicationName)) {
+            showDrugInteractionAlert("Penicillin", "Allergy", "Allergy risk: The patient is allergic to Penicillin. Avoid prescribing this drug.");
+            return true;  
+        }
+        return false;  
+    }
+
+    //Display Allergy/Drug interaction Alert
+    private void showDrugInteractionAlert(String drug1, String drug2, String message) {
+        
+        String alertMessage = "Drug Interaction Alert!\n\n"
+                + "Interacting Drugs: " + drug1 + " and " + drug2 + "\n\n"
+                + "Interaction: " + message + "\n\n"
+                + "Please consult with the physician before continuing.";
+
+        JOptionPane.showMessageDialog(entryFrame, alertMessage, "Warning: Drug Interaction", JOptionPane.WARNING_MESSAGE);
+
+        // Clear drug-related fields to allow the user to re-enter the correct information
+        medicationNameField.setText("");
+        medicationDateField.setText("");
+        dosageField.setText("");
+        instructionsField.setText(""); 
+    }
+
+    // New UI to display entered information
     private void showPrescriptionInfoUI(String patientName, String dob, String medicationName, String medicationDate, boolean isControlled, String dosage, String physicianName, String instructions) {
         JFrame infoFrame = new JFrame("Prescription Information");
         infoFrame.setSize(500, 400);
