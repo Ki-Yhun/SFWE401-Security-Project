@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.*;
 
 public class ExpiredMedicationsReportUI implements ActionListener {
     private static JLabel timePeriodLabel;
@@ -50,7 +50,6 @@ public class ExpiredMedicationsReportUI implements ActionListener {
         backButton = new JButton("Back");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(e -> {
-            new DashboardUI(); // Navigate back to the dashboard
             expiredMedicationsReportFrame.dispose(); // Close the current frame
         });
         reportPanel.add(backButton);

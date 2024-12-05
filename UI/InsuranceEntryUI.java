@@ -105,7 +105,6 @@ public class InsuranceEntryUI implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DashboardUI(); // Navigate back to the dashboard
                 entryFrame.dispose(); // Close the current frame
             }
         });

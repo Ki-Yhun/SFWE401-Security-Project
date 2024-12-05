@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class ComplianceReportUI implements ActionListener {
     private static JLabel timePeriodLabel;
@@ -49,7 +49,6 @@ public class ComplianceReportUI implements ActionListener {
         backButton = new JButton("Back");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(e -> {
-            new DashboardUI(); // Navigate back to the dashboard
             complianceReportFrame.dispose(); // Close the current frame
         });
         reportPanel.add(backButton);

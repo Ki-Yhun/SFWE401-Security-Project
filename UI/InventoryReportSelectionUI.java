@@ -48,7 +48,6 @@ public class InventoryReportSelectionUI {
         JButton backButton = new JButton("Back");
         backButton.setBounds(150, 200, 100, 25);
         backButton.addActionListener(e -> {
-            new DashboardUI(); // Navigate back to the dashboard
             selectionFrame.dispose(); // Close the current frame
         });
         panel.add(backButton);

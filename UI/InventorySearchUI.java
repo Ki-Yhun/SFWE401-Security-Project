@@ -1,7 +1,7 @@
-import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.HashMap; // For mock inventory storage
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.*; // For mock inventory storage
 
 public class InventorySearchUI implements ActionListener {
     private static JLabel medicationLabel;
@@ -62,7 +62,6 @@ public class InventorySearchUI implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DashboardUI(); // Navigate back to DashboardUI
                 searchFrame.dispose(); // Close the current frame
             }
         });

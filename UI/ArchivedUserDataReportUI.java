@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.*;
 
 public class ArchivedUserDataReportUI implements ActionListener {
     private static JLabel timePeriodLabel;
@@ -50,10 +50,10 @@ public class ArchivedUserDataReportUI implements ActionListener {
         backButton = new JButton("Back");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(e -> {
-            new DashboardUI(); // Navigate back to the dashboard
             archivedDataReportFrame.dispose(); // Close the current frame
         });
         reportPanel.add(backButton);
+
 
         // Revalidate and repaint the panel
         reportPanel.revalidate();

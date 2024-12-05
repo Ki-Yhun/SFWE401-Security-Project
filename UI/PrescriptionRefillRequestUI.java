@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 //import UI.*;  //it acted weird and the system didnt like it saying "java: package Data does not exist"
 
@@ -99,7 +99,6 @@ public class PrescriptionRefillRequestUI implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DashboardUI(); // Navigate back to the dashboard
                 refillFrame.dispose(); // Close the current frame
             }
         });

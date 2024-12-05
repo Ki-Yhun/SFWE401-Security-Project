@@ -1,6 +1,6 @@
-import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class NotificationUI implements ActionListener {
     private static JLabel notificationMethodLabel;
@@ -95,7 +95,6 @@ public class NotificationUI implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DashboardUI(); // Navigate back to the dashboard
                 notificationFrame.dispose(); // Close the current frame
             }
         });

@@ -1,8 +1,8 @@
-import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.*;
 
 public class PrescriptionSummaryUI implements ActionListener {
     private static JLabel nameLabel;
@@ -102,7 +102,6 @@ public class PrescriptionSummaryUI implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DashboardUI(); // Navigate back to DashboardUI
                 summaryFrame.dispose(); // Close the current frame
             }
         });
