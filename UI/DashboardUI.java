@@ -83,31 +83,38 @@ public class DashboardUI {
     private JPanel createPatientManagementPanel() {
         JPanel patientManagementPanel = new JPanel();
         patientManagementPanel.setLayout(new GridBagLayout());
-
-        
+    
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;  
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 1.0;  
-        gbc.weighty = 1.0;  
-        gbc.insets = new Insets(10, 10, 10, 10); 
-
-        
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+    
+        // Add existing buttons
         patientManagementPanel.add(createButton("Patient Entry", "patientEntry"), gbc);
-
+    
         gbc.gridy++;
         patientManagementPanel.add(createButton("Prescription Entry", "prescriptionEntry"), gbc);
-
+    
         gbc.gridy++;
         patientManagementPanel.add(createButton("Insurance Entry", "insuranceEntry"), gbc);
-
+    
         gbc.gridy++;
         patientManagementPanel.add(createButton("Refill Request", "refillRequest"), gbc);
-
+    
         gbc.gridy++;
         patientManagementPanel.add(createButton("Notification Preferences", "notificationPreferences"), gbc);
-
+    
+        // Add Patient Search button
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Patient Search", "patientSearch"), gbc);
+    
+        // Add Prescription Summary button
+        gbc.gridy++;
+        patientManagementPanel.add(createButton("Prescription Summary", "prescriptionSummary"), gbc);
+    
         return patientManagementPanel;
     }
 
@@ -147,6 +154,10 @@ public class DashboardUI {
         gbc.gridy++;
         pharmacyReportsPanel.add(createButton("Expired Medications Report", "expiredMedicationsReport"), gbc);
 
+        gbc.gridy++;
+        pharmacyReportsPanel.add(createButton("Inventory Search", "inventorySearch"), gbc);
+
+
         return pharmacyReportsPanel;
     }
 
@@ -162,8 +173,7 @@ public class DashboardUI {
                 case "pharmacyReports":
                     cardLayout.show(mainPanel, "Pharmacy Reports");
                     break;
-
-                // Patient Management actions
+    
                 case "patientEntry":
                     showPatientEntryUI();
                     break;
@@ -179,8 +189,14 @@ public class DashboardUI {
                 case "notificationPreferences":
                     showNotificationPreferencesUI();
                     break;
-
-                case "refillReport":
+    
+                case "patientSearch":
+                    showPatientSearchUI();
+                    break;
+                case "prescriptionSummary":
+                    showPrescriptionSummaryUI();
+                    break;
+                    case "refillReport":
                     showRefillReportUI();
                     break;
                 case "salesReport":
@@ -204,14 +220,16 @@ public class DashboardUI {
                 case "expiredMedicationsReport":
                     showExpiredMedicationsReportUI();
                     break;
-
+                case "inventorySearch":
+                    showInventorySearchUI();
+                    break;
                 default:
                     System.out.println("Unknown action: " + command);
                     break;
             }
         }
     }
-
+    
    
     private void showPatientEntryUI() {
         PatientEntryUI.initPatientEntryUI(); 
@@ -263,6 +281,18 @@ public class DashboardUI {
 
     private void showExpiredMedicationsReportUI() {
         ExpiredMedicationsReportUI.initExpiredMedicationsReportUI(); 
+    }
+
+    private void showPatientSearchUI() {
+        PatientSearchUI.initPatientSearchUI(); 
+    }
+    
+    private void showPrescriptionSummaryUI() {
+        PrescriptionSummaryUI.initPrescriptionSummaryUI(); 
+    }
+    
+    private void showInventorySearchUI() {
+        InventorySearchUI.initInventorySearchUI(); // Initialize InventorySearchUI
     }
 
     // Notification section
