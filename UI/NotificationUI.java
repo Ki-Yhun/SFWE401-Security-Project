@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-//import UI.DashboardUI; //it acted weird and the system didnt like it saying "java: package Data does not exist"
-
 public class NotificationUI implements ActionListener {
     private static JLabel notificationMethodLabel;
     private static JCheckBox smsCheckbox;
@@ -17,6 +15,8 @@ public class NotificationUI implements ActionListener {
     private static JComboBox<String> phoneCallTimeDropdown;
     private static JButton saveButton;
     private static JButton backButton;
+    private static JButton testPickupButton;
+    private static JButton testRefillButton;
     private static JFrame notificationFrame;
 
     public static void initNotificationUI() {
@@ -101,9 +101,42 @@ public class NotificationUI implements ActionListener {
         });
         notificationPanel.add(backButton);
 
+        // Test Pickup Notification Button
+        testPickupButton = new JButton("Test Pickup Notification");
+        testPickupButton.setBounds(labelX, startY + 8 * ySpacing, 200, height);
+        testPickupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showTestPickupNotificationWindow();
+            }
+        });
+        notificationPanel.add(testPickupButton);
+
+        // Test Refill Notification Button
+        testRefillButton = new JButton("Test Refill Notification");
+        testRefillButton.setBounds(labelX + 210, startY + 8 * ySpacing, 200, height);
+        testRefillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showTestNotificationWindowForRefills();
+            }
+        });
+        notificationPanel.add(testRefillButton);
+
         // Revalidate and repaint the panel
         notificationPanel.revalidate();
         notificationPanel.repaint();
+    }
+
+    // Action for the "Test Pickup Notification" button
+    private static void showTestPickupNotificationWindow() {
+        TestPickupNotificationWindow.initTestPickupNotificationWindow();
+    }
+    
+
+    // Action for the "Test Refill Notification" button
+    private static void showTestNotificationWindowForRefills() {
+        TestNotificationWindowForRefills.initTestNotificationWindowForRefills();
     }
 
     @Override
@@ -172,3 +205,4 @@ public class NotificationUI implements ActionListener {
         initNotificationUI();
     }
 }
+

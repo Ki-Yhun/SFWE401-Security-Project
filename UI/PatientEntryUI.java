@@ -1,8 +1,6 @@
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.*;                   // For teh jTextArea
-
-//import Data.*;    //it acted weird and the system didnt like it saying "java: package Data does not exist"
 
 public class PatientEntryUI implements ActionListener {
     private static JLabel patientNameLabel;
@@ -19,13 +17,13 @@ public class PatientEntryUI implements ActionListener {
 
     public static void initPatientEntryUI() {
         JPanel entryPanel = new JPanel();
-        entryFrame = new JFrame("Patient Entry");   // JFrame decleration moved from local to above at class level
+        entryFrame = new JFrame("Patient Entry");   // JFrame declaration moved from local to above at class level
 
-        entryFrame.setSize(400, 300);
+        entryFrame.setSize(400, 300); // Ensure window size is large enough to show buttons
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         entryFrame.setVisible(true);
         entryFrame.add(entryPanel);
-        entryPanel.setLayout(null);
+        entryPanel.setLayout(null);  // Absolute layout
 
         // Define consistent positions and dimensions
         int labelWidth = 120;
@@ -71,7 +69,8 @@ public class PatientEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
-        backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
+        // Adjusted Back Button Position to fit inside the frame
+        backButton.setBounds(labelX, startY + 4 * ySpacing + 50, 100, height);  // Adjust position as needed
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,13 +107,6 @@ public class PatientEntryUI implements ActionListener {
             patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);
             patient.setDOB(dob);
 
-            /* OLD TO PRINT TO CONSOLE WAY
-            // Process the data (for now, just print to the console)
-            System.out.println("Patient Name: " + patientName);
-            System.out.println("Date of Birth: " + dob);
-            System.out.println("Contact Info: " + contactInfo);
-            */
-
             // Close the current PatientEntryUI
             entryFrame.dispose();
 
@@ -122,7 +114,8 @@ public class PatientEntryUI implements ActionListener {
             showPatientInfoUI(patientName, dob, contactInfo);
         }
     }
-    //  New UI to display entered information
+
+    // New UI to display entered information
     private void showPatientInfoUI(String patientName, String dob, String contactInfo) {
         JFrame infoFrame = new JFrame("Patient Information");
         infoFrame.setSize(400, 300);
@@ -145,3 +138,4 @@ public class PatientEntryUI implements ActionListener {
         initPatientEntryUI();
     }
 }
+

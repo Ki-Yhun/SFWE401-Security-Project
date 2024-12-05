@@ -88,5 +88,17 @@ public class Patient extends User{
         return this.insurance;
     }
 
+    public void notifyPrescriptionReady(NotificationService.NotificationType notificationType, NotificationService notificationService) {
+        String message = "Your prescription is ready for pickup!";
+        
+        if (notificationType == NotificationService.NotificationType.SMS) {
+            notificationService.sendNotification(notificationType, String.valueOf(this.phoneNumber), message);
+        } else if (notificationType == NotificationService.NotificationType.EMAIL) {
+            notificationService.sendNotification(notificationType, this.email, message);
+        } else if (notificationType == NotificationService.NotificationType.PHONE) {
+            notificationService.sendNotification(notificationType, String.valueOf(this.phoneNumber), message);
+        }
+    }
+
 
 }
