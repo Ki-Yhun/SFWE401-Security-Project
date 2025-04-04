@@ -1,5 +1,10 @@
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Base64;
 
 public class Patient extends User{
     public String patientDOB;
@@ -100,5 +105,34 @@ public class Patient extends User{
         }
     }
 
+    public String toCSV(){
+        // Returns lastname firstname, DOB, email, phone number, insurance, allergies, prescriptions, username, password
+        return this.getlastName() + ";" + this.getfirstName() + ";" + this.getDOB() + ";" + this.getEmail() + ";" + this.getPhoneNumber() + ";" + this.getInsurance() + ";" + this.getAllergies() + ";" + this.getPrescriptions() + ";" + this.getuserName() + ";" + this.getpassword();
+    }
+
+    public void writeToDatabase(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("PatientData.csv", true))) {
+            writer.write(this.toCSV());
+            writer.newLine();
+
+            System.out.println("patientData added successfully to PatientData.csv");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: PatientData.csv");
+        }
+    }
+
+    public void writeToEncryptedDatabase(){
+        String data = this.toCSV();
+        String encodedData = Base64.getEncoder().encodeToString(data.getBytes());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("EncryptedPatientData.csv", true))) {
+
+            writer.write(encodedData);
+            writer.newLine();
+
+            System.out.println("Patient data encrypted with Base64 added successfully to EncryptedPatientData.csv");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: EncryptedPatientData.csv");
+        }
+    }
 
 }
