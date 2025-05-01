@@ -1,9 +1,8 @@
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import javax.swing.*;
 
 public class LoginUI implements ActionListener {
     private static JLabel userNameLabel;
@@ -55,6 +54,7 @@ public class LoginUI implements ActionListener {
 
         //Login Button
         loginButton = new JButton("Login");
+        loginButton.setToolTipText("Click to log in");
         loginButton.setBounds(10, 80, 80, 25);
         loginButton.addActionListener(new LoginUI());
         loginPanel.add(loginButton);

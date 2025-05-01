@@ -48,6 +48,7 @@ public class FinancialSummaryReportUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Go back to the previous screen");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(e -> {
             financialReportFrame.dispose(); // Close the current frame

@@ -98,6 +98,7 @@ public class PrescriptionSummaryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Click to go back to the previous screen");
         backButton.setBounds(fieldX, startY + 2 * ySpacing, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override

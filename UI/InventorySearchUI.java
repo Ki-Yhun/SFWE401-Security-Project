@@ -58,6 +58,7 @@ public class InventorySearchUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Click to go back to the previous screen");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override

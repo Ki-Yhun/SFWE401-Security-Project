@@ -128,6 +128,7 @@ public class PrescriptionEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Click to go back to the previous screen");
         backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override

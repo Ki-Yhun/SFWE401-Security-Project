@@ -91,6 +91,7 @@ public class NotificationUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Click to go back to the previous screen.");
         backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -102,6 +103,7 @@ public class NotificationUI implements ActionListener {
 
         // Test Pickup Notification Button
         testPickupButton = new JButton("Test Pickup Notification");
+        testPickupButton.setToolTipText("Click to test the pickup notification functionality.");
         testPickupButton.setBounds(labelX, startY + 8 * ySpacing, 200, height);
         testPickupButton.addActionListener(new ActionListener() {
             @Override
@@ -113,6 +115,7 @@ public class NotificationUI implements ActionListener {
 
         // Test Refill Notification Button
         testRefillButton = new JButton("Test Refill Notification");
+        testRefillButton.setToolTipText("Click to test the refill notification functionality.");
         testRefillButton.setBounds(labelX + 210, startY + 8 * ySpacing, 200, height);
         testRefillButton.addActionListener(new ActionListener() {
             @Override

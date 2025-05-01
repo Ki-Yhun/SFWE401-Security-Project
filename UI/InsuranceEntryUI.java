@@ -1,6 +1,6 @@
-import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class InsuranceEntryUI implements ActionListener {
     private static JLabel policyNumberLabel;
@@ -101,6 +101,7 @@ public class InsuranceEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Go back to the previous screen");
         backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override

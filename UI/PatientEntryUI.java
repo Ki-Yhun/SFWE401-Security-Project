@@ -69,6 +69,7 @@ public class PatientEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
+        backButton.setToolTipText("Click to go back to the previous screen");
         // Adjusted Back Button Position to fit inside the frame
         backButton.setBounds(labelX, startY + 4 * ySpacing + 50, 100, height);  // Adjust position as needed
         backButton.addActionListener(new ActionListener() {

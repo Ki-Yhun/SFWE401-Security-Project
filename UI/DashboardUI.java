@@ -74,6 +74,7 @@ public class DashboardUI {
 
     private JButton createButton(String label, String actionCommand) {
         JButton button = new JButton(label);
+        button.setToolTipText("Click to navigate to " + label);
         button.setActionCommand(actionCommand);
         button.setAlignmentX(Component.CENTER_ALIGNMENT); 
         button.addActionListener(new DashboardButtonListener());
