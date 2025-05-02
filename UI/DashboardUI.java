@@ -3,11 +3,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class DashboardUI {
+public final class DashboardUI {
 
-    private JLabel notificationBar;
-    private JPanel mainPanel;
-    private CardLayout cardLayout;
+    private final JLabel notificationBar;
+    private final JPanel mainPanel;
+    private final CardLayout cardLayout;
 
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
@@ -231,7 +231,6 @@ public class DashboardUI {
         }
     }
     
-   
     private void showPatientEntryUI() {
         PatientEntryUI.initPatientEntryUI(); 
     }
