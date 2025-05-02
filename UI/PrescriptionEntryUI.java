@@ -32,7 +32,6 @@ public class PrescriptionEntryUI implements ActionListener {
     public static void initPrescriptionEntryUi() {
         JPanel entryPanel = new JPanel();
         entryFrame = new JFrame("Prescription Entry");
-
         entryFrame.setSize(500, 500);
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         entryFrame.setVisible(true);
@@ -159,8 +158,6 @@ public class PrescriptionEntryUI implements ActionListener {
             if (checkForDrugInteractions(medicationName)) {
                 return; 
             }
-
-            float dosageValue = Float.parseFloat(dosage);
 
             // Split patient name into first and last names
             String firstName = "";
