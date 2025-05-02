@@ -5,18 +5,18 @@ import java.util.Map;
 import javax.swing.*;
 
 public class LoginUI implements ActionListener {
-    private static JLabel userNameLabel;
+    
     private static JTextField userNameField;
-    private static JLabel passwordLabel;
     private static JPasswordField passwordField;
-    private static JButton loginButton;
-
-    private static DashboardUI dashboardUI = new DashboardUI();
+    private static final DashboardUI dashboardUI = new DashboardUI();
 
     //Debug purposes only - move to separate file/class later with hashed passwords and user objects
     private static final Map<String, String> debugUserPass = new HashMap<>();
     //Replace function declaration with below to unit test)
     public static void initLoginUI() {
+        JButton loginButton;
+        JLabel passwordLabel;
+        JLabel userNameLabel;
         debugUserPass.put("taz", "12345");
         debugUserPass.put("elitired", "asdf");
 
