@@ -1,22 +1,22 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
+import java.util.HashMap;
 
 public class LoginUI implements ActionListener {
-    
+    private static JLabel userNameLabel;
     private static JTextField userNameField;
+    private static JLabel passwordLabel;
     private static JPasswordField passwordField;
-    private static final DashboardUI dashboardUI = new DashboardUI();
+    private static JButton loginButton;
 
     //Debug purposes only - move to separate file/class later with hashed passwords and user objects
-    private static final Map<String, String> debugUserPass = new HashMap<>();
+    private static Map<String, String> debugUserPass = new HashMap<>();
     //Replace function declaration with below to unit test)
+    //public static void main(string[] args) {
     public static void initLoginUI() {
-        JButton loginButton;
-        JLabel passwordLabel;
-        JLabel userNameLabel;
         debugUserPass.put("taz", "12345");
         debugUserPass.put("elitired", "asdf");
 
@@ -27,7 +27,13 @@ public class LoginUI implements ActionListener {
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setVisible(true);
         loginFrame.add(loginPanel);
+
         loginPanel.setLayout(null);
+        /*
+        JLabel labelname = new JLabel("Label Text Here");
+        userNameLabel.setBounds(x, y, width, height);
+        loginPanel.add(labelname);
+         */
 
         //Username
         userNameLabel = new JLabel("Username:");
@@ -49,7 +55,6 @@ public class LoginUI implements ActionListener {
 
         //Login Button
         loginButton = new JButton("Login");
-        loginButton.setToolTipText("Click to log in");
         loginButton.setBounds(10, 80, 80, 25);
         loginButton.addActionListener(new LoginUI());
         loginPanel.add(loginButton);
@@ -69,9 +74,9 @@ public class LoginUI implements ActionListener {
 
                 // New, adding dashboard that pops up
                 // Close Login Window
-                SwingUtilities.getWindowAncestor(userNameField).dispose();
+                ((JFrame) SwingUtilities.getWindowAncestor(userNameField)).dispose();
                 // Open Dashboard
-                dashboardUI.checkForAlerts();
+                new DashboardUI();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Invalid password, please try again.");
@@ -87,3 +92,4 @@ public class LoginUI implements ActionListener {
         initLoginUI();
     }
 }
+

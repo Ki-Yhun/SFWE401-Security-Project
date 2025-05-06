@@ -1,6 +1,6 @@
 public class Prescription{
     //Replace patientName/patientDOB strings with appropriate User object later**
-    public Patient presPatient;
+    private Patient presPatient;
     protected Drug presDrug;
     protected float presDosage;
     protected String instructions;

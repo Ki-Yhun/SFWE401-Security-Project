@@ -1,9 +1,9 @@
 public class User {
-    public String userName;
+    private String userName;
     //replace password with hashed password later
-    public String password;
-    public String firstName;
-    public String lastName;
+    private String password;
+    private String firstName;
+    private String lastName;
     //Constructors
     public User(String userName, String password, String firstName, String lastName) {
         this.userName = userName;

@@ -13,8 +13,6 @@ public class PatientEntryUI implements ActionListener {
     private static JButton backButton;
     private static JFrame entryFrame; // Store the PatientEntryUI JFrame reference in class so we can close it once information is entered
 
-    public Patient patient;
-
     public static void initPatientEntryUI() {
         JPanel entryPanel = new JPanel();
         entryFrame = new JFrame("Patient Entry");   // JFrame declaration moved from local to above at class level
@@ -69,7 +67,6 @@ public class PatientEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
-        backButton.setToolTipText("Click to go back to the previous screen");
         // Adjusted Back Button Position to fit inside the frame
         backButton.setBounds(labelX, startY + 4 * ySpacing + 50, 100, height);  // Adjust position as needed
         backButton.addActionListener(new ActionListener() {
@@ -104,7 +101,7 @@ public class PatientEntryUI implements ActionListener {
                 lastName = " ";
             }
 
-            patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);
+            Patient patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);
             patient.setDOB(dob);
             patient.updateContactInfo(contactInfo);
 
@@ -131,9 +128,9 @@ public class PatientEntryUI implements ActionListener {
 
         JTextArea infoArea = new JTextArea();
         infoArea.setEditable(false);
-        infoArea.setText("Patient Information:\n");
-        infoArea.append("Patient Name: " + patientName + "\n");
-        infoArea.append("Date of Birth: " + dob + "\n");
+        infoArea.setText("Patient Information:%n");
+        infoArea.append("Patient Name: " + patientName + "%n");
+        infoArea.append("Date of Birth: " + dob + "%n");
         infoArea.append("Contact Info: " + contactInfo);
 
         JScrollPane scrollPane = new JScrollPane(infoArea);

@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class Patient extends User{
-    public String patientDOB;
+    private String patientDOB;
     public List<String> allergies = new ArrayList<>();
     public List<Prescription> prescriptions = new ArrayList<>();
-    public String email;
-    public int phoneNumber;
-    public String insurance;
+    private String email;
+    private int phoneNumber;
+    private String insurance;
 
 
     public Patient(){

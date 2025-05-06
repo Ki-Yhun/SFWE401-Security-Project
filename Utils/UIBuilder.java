@@ -10,7 +10,7 @@ public class UIBuilder {
     private int fieldX;
     public int ySpacing;
     private int startY;
-    public int multY;
+    private int multY;
 
     public UIBuilder(JPanel panel, int labelWidth, int fieldWidth, int height, int labelX, int fieldX, int ySpacing, int startY) {
         this.panel = panel;

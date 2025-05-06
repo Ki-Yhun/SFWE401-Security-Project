@@ -28,17 +28,14 @@ public class InventoryReportSelectionUI {
         panel.add(label);
 
         JButton weeklyButton = new JButton("Weekly");
-        weeklyButton.setToolTipText("Click to generate a weekly report");
         weeklyButton.setBounds(50, 100, 100, 25);
         panel.add(weeklyButton);
 
         JButton monthlyButton = new JButton("Monthly");
-        monthlyButton.setToolTipText("Click to generate a monthly report");
         monthlyButton.setBounds(160, 100, 100, 25);
         panel.add(monthlyButton);
 
         JButton yearlyButton = new JButton("Yearly");
-        yearlyButton.setToolTipText("Click to generate a yearly report");
         yearlyButton.setBounds(270, 100, 100, 25);
         panel.add(yearlyButton);
 
@@ -49,7 +46,6 @@ public class InventoryReportSelectionUI {
 
         // Back Button
         JButton backButton = new JButton("Back");
-        backButton.setToolTipText("Click to go back to the previous screen");
         backButton.setBounds(150, 200, 100, 25);
         backButton.addActionListener(e -> {
             selectionFrame.dispose(); // Close the current frame

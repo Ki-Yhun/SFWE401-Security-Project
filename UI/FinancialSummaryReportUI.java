@@ -48,7 +48,6 @@ public class FinancialSummaryReportUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
-        backButton.setToolTipText("Go back to the previous screen");
         backButton.setBounds(labelX + 200, startY + ySpacing, 100, height);
         backButton.addActionListener(e -> {
             financialReportFrame.dispose(); // Close the current frame
@@ -81,7 +80,7 @@ public class FinancialSummaryReportUI implements ActionListener {
         simulatedData.put("Non-Prescription Items", new Double[]{500.0, 2000.0, 25000.0});
 
         StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append("Time Period: ").append(timePeriod).append("\n\n");
+        reportBuilder.append("Time Period: ").append(timePeriod).append("%n%n");
 
         double totalIncome = 0.0;
 
@@ -105,8 +104,8 @@ public class FinancialSummaryReportUI implements ActionListener {
 
             totalIncome += income;
 
-            reportBuilder.append("Category: ").append(category).append("\n");
-            reportBuilder.append("Income: $").append(income).append("\n\n");
+            reportBuilder.append("Category: ").append(category).append("%n");
+            reportBuilder.append("Income: $").append(income).append("%n%n");
         }
 
         reportBuilder.append("Total Income: $").append(totalIncome);
@@ -122,7 +121,7 @@ public class FinancialSummaryReportUI implements ActionListener {
 
         JTextArea infoArea = new JTextArea();
         infoArea.setEditable(false);
-        infoArea.setText("Financial Summary Report:\n\n" + reportData);
+        infoArea.setText("Financial Summary Report:%n%n" + reportData);
 
         JScrollPane scrollPane = new JScrollPane(infoArea);
         infoFrame.add(scrollPane);

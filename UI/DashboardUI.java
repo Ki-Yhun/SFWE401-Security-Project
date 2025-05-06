@@ -3,11 +3,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public final class DashboardUI {
+public class DashboardUI {
 
-    private final JLabel notificationBar;
-    private final JPanel mainPanel;
-    private final CardLayout cardLayout;
+    private JLabel notificationBar;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
 
     public DashboardUI() {
         JFrame dashboardFrame = new JFrame("Dashboard");
@@ -74,7 +74,6 @@ public final class DashboardUI {
 
     private JButton createButton(String label, String actionCommand) {
         JButton button = new JButton(label);
-        button.setToolTipText("Click to navigate to " + label);
         button.setActionCommand(actionCommand);
         button.setAlignmentX(Component.CENTER_ALIGNMENT); 
         button.addActionListener(new DashboardButtonListener());
@@ -231,6 +230,7 @@ public final class DashboardUI {
         }
     }
     
+   
     private void showPatientEntryUI() {
         PatientEntryUI.initPatientEntryUI(); 
     }

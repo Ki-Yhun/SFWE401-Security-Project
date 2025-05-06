@@ -25,13 +25,14 @@ public class PrescriptionEntryUI implements ActionListener {
     private static JButton backButton;
     private static JFrame entryFrame;   // Class-level JFrame reference so we can close UI when done with entry
 
-    public Prescription prescription;
-    public Patient patient; 
-    public Drug drug;
+    private Prescription prescription;
+    private Patient patient;
+    private Drug drug;
 
     public static void initPrescriptionEntryUi() {
         JPanel entryPanel = new JPanel();
         entryFrame = new JFrame("Prescription Entry");
+
         entryFrame.setSize(500, 500);
         entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         entryFrame.setVisible(true);
@@ -127,7 +128,6 @@ public class PrescriptionEntryUI implements ActionListener {
 
         // Back Button
         backButton = new JButton("Back");
-        backButton.setToolTipText("Click to go back to the previous screen");
         backButton.setBounds(labelX + 250, startY + 7 * ySpacing + 100, 100, height);
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -158,6 +158,8 @@ public class PrescriptionEntryUI implements ActionListener {
             if (checkForDrugInteractions(medicationName)) {
                 return; 
             }
+
+            float dosageValue = Float.parseFloat(dosage);
 
             // Split patient name into first and last names
             String firstName = "";

@@ -20,11 +20,11 @@ public class InventoryReportGenerator {
 
         // Format the report
         StringBuilder reportContent = new StringBuilder();
-        reportContent.append("=== Inventory Report for ").append(report.getReportPeriod()).append(" ===\n");
-        reportContent.append(String.format("%-20s %-15s %-15s %-15s\n", "Medication", "Stock Level", "Usage", "Turnover Rate"));
+        reportContent.append("=== Inventory Report for ").append(report.getReportPeriod()).append(" ===%n");
+        reportContent.append(String.format("%-20s %-15s %-15s %-15s%n", "Medication", "Stock Level", "Usage", "Turnover Rate"));
 
         for (String[] drug : report.getTurnoverRateData()) {
-            reportContent.append(String.format("%-20s %-15s %-15s %-15s\n", drug[0], drug[1], drug[2], drug[3]));
+            reportContent.append(String.format("%-20s %-15s %-15s %-15s%n", drug[0], drug[1], drug[2], drug[3]));
         }
 
         // Set the report content in the JTextArea

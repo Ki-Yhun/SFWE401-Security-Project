@@ -2,14 +2,14 @@
 
 
 public class Drug {
-    public String name = null;
-    public String expirationDate = null;
-    public boolean expired = false;
-    public boolean controlled = false;
-    public float inventory = 0;
-    public int weeklyUsage = 0;
-    public int monthlyUsage = 0;
-    public int yearlyUsage = 0;
+    private String name = null;
+    private String expirationDate = null;
+    private boolean expired = false;
+    private boolean controlled = false;
+    private float inventory = 0;
+    private int weeklyUsage = 0;
+    private int monthlyUsage = 0;
+    private int yearlyUsage = 0;
 
     //Constructors
     public Drug(String inputName, String inputDate, boolean controlledStatus) {
