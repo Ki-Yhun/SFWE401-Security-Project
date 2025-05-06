@@ -106,9 +106,17 @@ public class PatientEntryUI implements ActionListener {
 
             patient = new Patient("defaultUsername", "defaultPassword", firstName, lastName);
             patient.setDOB(dob);
+            patient.updateContactInfo(contactInfo);
 
             // Close the current PatientEntryUI
             entryFrame.dispose();
+
+            // Enters the new Patient data into the PatientData.csv
+            patient.writeToDatabase();
+
+            // Enters the new Patient data into EncryptedPatientData.csv
+            patient.writeToEncryptedDatabase();
+
 
             // Open a new UI window to display the entered information
             showPatientInfoUI(patientName, dob, contactInfo);
